@@ -15,7 +15,8 @@ module Sinatra
         # allow only email for now
         resource = params[:resource]
         no_scheme = resource.sub /^acct:/, ''
-        account = config[no_scheme] || config[resource]
+        suffix = no_scheme.split('@')[1]
+        account = config[no_scheme] || config[resource] || config[suffix]
         halt 404 unless account
 
         response = {
